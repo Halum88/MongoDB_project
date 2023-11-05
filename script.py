@@ -45,13 +45,15 @@ async def get_aggreg_data(dt_from, dt_upto, group_type):
 
 
     aggregated_data = []
-
+    new_date = []
     for date in date_list:
+        new_date.append(datetime.strftime(date, '%Y-%m-%dT%H:%M:%S'))
         if date.strftime('%Y-%m-%dT%H:%M:%S') in result_data[0]['labels']:
             index = result_data[0]['labels'].index(date.strftime('%Y-%m-%dT%H:%M:%S'))
             aggregated_data.append(result_data[0]['dataset'][index])
         else:
             aggregated_data.append(0)
+    
 
-    return {'dataset': aggregated_data, 'labels': result_data[0]['labels']}
+    return {'dataset': aggregated_data, 'labels': new_date}
 
